@@ -40,7 +40,8 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.actionCart -> {
-                    startActivity(Intent(this, CartActivity::class.java))
+                    val intent = Intent(this.applicationContext, CartActivity::class.java)
+                    startActivity(intent)
                 }
 
             }

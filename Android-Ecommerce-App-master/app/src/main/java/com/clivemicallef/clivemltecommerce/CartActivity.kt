@@ -14,42 +14,9 @@ class CartActivity : AppCompatActivityWithDb() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_cart)
-
-
-        doAsync {
-            for (product in super.db.cartDao().getAll()) {
-                cartText.append("${product.name} - ${product.price} TOK\n")
-            }
-        }
-
-        checkout.setOnClickListener {
-            val context = this
-            doAsync {
-                super.db.cartDao().deleteAll()
-                uiThread {
-                    AlertDialog.Builder(context)
-                            .setMessage("Your order has been successfully placed!")
-                            .setPositiveButton("OK") { _, _ ->
-                                cartText.text = ""
-                            }
-                            .create()
-                            .show()
-                }
-
-            }
-        }
-
-
-        clear.setOnClickListener {
-            val context = this
-            doAsync {
-                super.db.cartDao().deleteAll()
-                uiThread {
-                    cartText.text = ""
-                }
-            }
-        }
-
+        setContentView(R.layout.content_main)
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.frameLayout, CartFragment())
+                .commit()
     }
 }
